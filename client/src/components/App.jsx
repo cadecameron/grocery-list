@@ -2,21 +2,6 @@ import React, { Component } from 'react';
 import AddGrocery from './AddGrocery.jsx';
 import GroceryList from './GroceryList.jsx';
 
-const groceries = [
-  {
-    item: 'Pepperoni Pizza',
-    quantity: 10
-  },
-  {
-    item: 'Teriyaki Chicken',
-    quantity: 5
-  },
-  {
-    item: 'Lasagna',
-    quantity: 1000
-  }
-]
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -26,24 +11,36 @@ class App extends Component {
     }
 
     this.addGrocery = this.addGrocery.bind(this);
+    this.getGroceries = this.getGroceries.bind(this);
   }
 
   componentDidMount() {
-    // this emulates an AJAX request
-    setTimeout(() => {
-      this.setState({
-        groceries: groceries,
-      });
-    }, 2000);
+    this.getGroceries();
+  }
+
+  getGroceries() {
+    fetch('/api/groceries')
+      .then(res => res.json())
+      .then((groceries) => {
+        this.setState({
+          groceries
+        });
+      })
+      .catch(console.log)
   }
 
   addGrocery(grocery) {
-    const { groceries } = this.state;
-    const newGroceries = [...groceries];
-    newGroceries.push(grocery);
-    this.setState({
-      groceries: newGroceries,
+    fetch('/api/groceries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' // the server needs to know its a JSON object, otherwise the server's parser won't parse it!
+      },
+      body: JSON.stringify(grocery) // have to strigify objects before you send them over the internet
     })
+    .then(() => {
+      this.getGroceries();
+    })
+    .catch(console.log)
   }
 
   render() {
@@ -51,10 +48,10 @@ class App extends Component {
 
     return (
       <div>
-        <img src="grocery-bags.png"/>
+        <img src="grocery-bags.png" />
         <h1>Grocery List</h1>
         <AddGrocery addGrocery={this.addGrocery} />
-        <GroceryList groceries={groceries}/>
+        <GroceryList groceries={groceries} />
       </div>
     )
   }
