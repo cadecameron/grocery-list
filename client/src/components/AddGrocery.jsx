@@ -5,6 +5,7 @@ class AddGrocery extends Component {
     super(props);
 
     this.state = {
+      id: '',
       item: '',
       quantity: ''
     }
@@ -14,7 +15,12 @@ class AddGrocery extends Component {
   }
 
   onChangeHandler({target}) {
-    const { name, value } = target;
+    let { name, value } = target;
+
+    // check if value is a vaild number
+    if(name === 'quantity' && isNaN(value)) {
+      value = '';
+    }
 
     this.setState({
       [name]: value,
@@ -23,9 +29,13 @@ class AddGrocery extends Component {
 
   onSubmithandler(event) {
     event.preventDefault();
-    const { addGrocery } = this.props;
-    addGrocery(this.state);
-    this.initializeState();
+
+    // if user entered a valid name, continue with setState
+    if (this.state.item.length > 0) {
+      const { addGrocery } = this.props;
+      addGrocery(this.state);
+      this.initializeState();
+    }
   }
 
   initializeState() {
