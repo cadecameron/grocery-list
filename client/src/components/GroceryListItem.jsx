@@ -44,7 +44,7 @@ class GroceryListItem extends Component {
     let groceryName, groceryQty;
 
     // conditionally insert either span or editable text boxes, based on editing property in props
-    if (this.state.editing === false) {
+    if (!this.state.editing) {
       groceryName = <span className="grocery-name"> {this.props.grocery.item} </span>;
       groceryQty = <span className="grocery-qty"> {this.props.grocery.quantity} </span>;
     } else {
@@ -62,10 +62,10 @@ class GroceryListItem extends Component {
 
     return (
       <div className="grocery" data-key={this.props.grocery.id}>
-        <div className="grocery-item">
+        <div className="grocery-name">
           {groceryName}
         </div>
-        <div className="grocery-item">
+        <div className="grocery-qty">
           {groceryQty}
         </div>
         <div>

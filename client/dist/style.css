@@ -49,21 +49,23 @@ ul {
 }
 
 .grocery {
-  display: flex;
-  height: 25px;
+  display      : flex;
+  height       : 25px;
   align-content: space-between;
 }
 
 .grocery-item {
-  flex: 40%;
-  vertical-align: middle;
+  /* flex          : 40%; */
+  vertical-align   : middle;
 }
 
 .grocery-name {
-  text-align: left;
+  text-align : left;
   font-weight: bold;
+  flex       : 40%;
 }
 
 .grocery-qty {
-  text-align: right;
+  text-align: left;
+  flex      : 40%;
 }
