@@ -1,1 +1,0 @@
-# Full Stack Review Workshop
