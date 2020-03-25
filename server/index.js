@@ -2,7 +2,6 @@ const express = require('express');
 const dbConnection = require('../database');
 
 const app = express();
-//const __dirname = 'string';
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log('Listening on localhost', PORT));
@@ -74,6 +73,3 @@ app.put('/api/groceries', (req, res) => {
 })
 
 app.use(express.static('client/dist'));
-
-
-
